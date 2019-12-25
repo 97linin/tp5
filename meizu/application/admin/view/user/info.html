@@ -1,0 +1,33 @@
+{extend name="public/base1" /}
+{block name="content"}
+<div class="cl pd-20" style=" background-color:#5bacb6;">
+	
+	<dl style="margin-left:80px; color:#fff">
+		
+		<dt><span class="f-18">用户名：{$Think.session.user.username}</span></dt>
+		
+	</dl>
+</div>
+<div class="pd-20" style="text-align: center;">
+	<table class="table" align="center">
+		<tbody>
+			<tr>
+				<th class="text-r">昵称：</th>
+				<td>{$Think.session.user.nickname}</td>
+			</tr>
+			<tr>
+				<th class="text-r">手机：</th>
+				<td>{$Think.session.user.phone}</td>
+			</tr>
+			<tr>
+				<th class="text-r">邮箱：</th>
+				<td>{$Think.session.user.email}</td>
+			</tr>
+			<tr>
+				<th class="text-r">注册时间：</th>
+				<td>{$Think.session.user.create_time}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+{/block}

@@ -1,0 +1,53 @@
+{extend name="public/base" /}
+{block name="style"}
+<link href="__STATIC__/coolshow/coolShow.css" rel="stylesheet" type="text/css" />
+
+{/block}
+{block name="content"}
+<div class="row">
+	{volist name="data" id="vo"}
+	<div class="col-xs-6 col-md-3">
+		<a href="{:url('photo/show')}?psname'=>{$vo}" class="thumbnail">
+			{$vo}--{$key}
+		</a>
+	</div>
+	{/volist}
+</div>
+<div class = "main">
+	<div id = "coolShow"></div>
+	<div id = "handBar"></div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript" src = "__STATIC__/coolshow/coolShow.js"></script>
+<script type="text/javascript">
+	function GetQueryString(name){
+		var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+		var r=window.location.search.substr(1).match(reg);
+		if(r|=null)return unescape(r[2]); return null;
+	}
+	$(document).ready(function() {
+		var ps=[];
+		var psname=GetQueryString('psname');
+		$.ajax({
+			url:"{:url('photo/getphoto')}",
+			data:{
+				psname:psname,
+			},
+			async:false,
+			cache:false,
+			type:"POST",
+			dataType:'json',
+			success:function(data){
+				
+				ps=data;
+			}
+		})
+		console.log(ps)
+		$('#coolShow').coolShow({
+			imgSrc:ps,
+			speed:40
+		});
+	});
+</script>
+{/block}

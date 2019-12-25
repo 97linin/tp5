@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{$title|default='单词'}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/assets/css/bootstrap.min.css" />
+		<style type="text/css">
+			
+		</style>
+		{block name="style"}{/block}
+	</head>
+	<body>
+		<div>
+			
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					{include file='public/menu'}
+					{block name="content"}{/block}
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		
+		<script src="__STATIC__/assets/js/jquery.min.js"></script>
+		<script src="__STATIC__/assets/js/bootstrap.min.js"></script>
+		{block name="js"}{/block}
+	</body>
+</html>

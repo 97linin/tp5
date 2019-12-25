@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>修改密码
+		</title>
+		<meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+		<meta name="author" content="Vincent Garreau" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" media="screen" href="__STATIC__/art/css/style.css">
+		<link rel="stylesheet" type="text/css" href="__STATIC__/art/css/reset.css" />
+	</head>
+	<body style=" background-image: url('__STATIC__/art/img/thumb-1920-480310.jpg');">
+
+		<div id="particles-js" style="background-image: url('__STATIC__/art/img/thumb-1920-480310.jpg');">
+			<div class="login" style="background-image: url('__STATIC__/art/img/thumb-1920-480310.jpg');">
+				<div class="login-top" style="color: wheat;">
+					修改密码
+				</div>
+				
+				<form action="{:url('index/update')}" method="post">
+					<div class="login-center clearfix">
+						
+						<div class="login-center-img"><img src="__STATIC__/art/img/password.png" /></div>
+						<div class="login-center-input">
+							<input type="text" name="username" id="username" />
+							<div class="login-center-input-text">name</div>
+						
+						</div>
+						
+						
+					</div>
+					<div class="login-center clearfix">
+						
+						<div class="login-center-img"><img src="__STATIC__/art/img/password.png" /></div>
+						<div class="login-center-input">
+						
+							<input type="text" name="password" id="password" />
+							<div class="login-center-input-text">原密码</div>
+						</div>
+						
+						
+					</div>
+					<div class="login-center clearfix">
+						<div class="login-center-img"><img src="__STATIC__/art/img/password.png" /></div>
+						<div class="login-center-input">
+							<input type="text" name="password1" id="password1" />
+							<div class="login-center-input-text">新密码</div>
+						</div>
+						
+						<input type="hidden" name="id" id="" value="{$data.id|default=''}" />
+					</div>
+				
+					
+					
+					<button type="submit" class="login-button">确认修改</button>
+				</form>
+			</div>
+			<div class="sk-rotating-plane"></div>
+		</div>
+
+		
+	</body>
+</html>

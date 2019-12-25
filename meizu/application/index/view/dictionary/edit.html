@@ -1,0 +1,16 @@
+{extend name="public/base" /}
+
+{block name="content"}
+<form action="{:url('Dictionary/update')}" method="post">
+	<div class="form-group">
+		<label for="title">单词</label>
+		<input type="text" class="form-control" name="word" id="word" placeholder="请输入单词" value="{$data.word}"/>
+	</div>
+	<div class="form-group">
+		<label for="remark">单词解释</label>
+		<textarea type="text" class="form-control" name="explanation" id="explanation" rows="5" />{$data.explanation}</textarea>
+	</div>
+	<input type="hidden" name="id" id="" value="{$data.id|default=''}" />
+	<button type="submit" class="btn btn-default">修改单词</button>
+</form>
+{/block}

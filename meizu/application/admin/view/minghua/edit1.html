@@ -1,0 +1,83 @@
+{extend name="public/base1" /}
+{block name="style"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/umeditor/themes/default/css/umeditor.min.css">
+<style type="text/css">
+	#show{
+		height: 80px;
+	}
+</style>
+{/block}
+{block name="content"}
+<article class="cl pd-20">
+	<form action="{:url('minghua/update')}" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品名字：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$data.title}" placeholder="" id="title" name="title">
+			</div>
+		</div>
+
+		<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作者名字：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea id="remark" name="remark" cols="" rows=""  class="input-text" datatype="*10-100" dragonfly="true"
+				 nullmsg="备注不能为空！" >{$data.remark}</textarea>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<script id="editor" name="content" type="text/plain"></script>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input type="hidden" name="id" value="{$data.id}" />
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+{/block}
+{block name="js"}
+<script src="__STATIC__/umeditor/umeditor.config.js" type="text/javascript"></script>
+<script src="__STATIC__/umeditor/umeditor.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+	var editor = UM.getEditor('editor');
+	$(document).ready(function() {
+		editor.addListener("ready", function() {
+			editor.setContent('{$data.content}');
+		});
+	});
+	function checkfile(){
+		var formdata=new FormData();
+		formdata.append('file',document.getElementById('file').files[0])
+		$.ajax({
+			url:"{:url('article/ajaxupload')}",
+			data:formdata,
+			async:true,
+			cache:false,
+			processData:false,
+			contentType:false,
+			type:"POST",
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+				if(data.code==0){
+					$("#show").attr('src','{$Request.root}/'+data.msg);
+					$("#cover_img").val(data.msg);
+				}else{
+					
+				}
+			}
+		})
+	};
+	
+</script>
+{/block}

@@ -1,0 +1,155 @@
+{extend name="public/base" /}
+
+{block name="content"}
+<div>
+	<input class="btn btn-default" type="button" id="checkall" value="全选">
+	<input class="btn btn-default" type="button" id="checkno" value="取消">
+	<input class="btn btn-default" type="button" id="emails" value="群发邮件">
+	<table class="table">
+		<caption>欢迎使用</caption>
+		<thead>
+			<tr>
+				<th></th>
+				<th>#</th>
+				<th>用户名</th>
+				<th>昵称</th>
+				<th>邮箱</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name='data' id='v2' empty='暂时没有数据'}
+			<tr>
+				<td><input type="checkbox" class="emaillist" value="{$v2.email}" /></td>
+				<th scope="row">{$i}</th>
+				<td>{$v2.username}</td>
+				<td>{$v2.nickname}</td>
+				<td>{$v2.email}</td>
+				<td>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="show('{$v2.email}')">
+					 发邮件
+					</button>
+
+				</td>
+			</tr>
+			{/volist}
+		</tbody>
+	</table>
+	{$data|raw}
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">发送邮件：<span id="email"></span></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+        	<div class="form-group">
+        		<label for="title">邮件主题</label>
+        		<input type="text" class="form-control" id="title" placeholder="请输入邮件主题" />
+        	</div>
+        	<div class="form-group">
+        		<label for="remark">邮件内容</label>
+        		<textarea rows="5" name="content" id="content" class="form-control"></textarea>
+        	</div>
+        	
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" id="sendmail" class="btn btn-primary">发送</button>
+		<button type="button" id="sendmails" class="btn btn-primary">群发</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="js"}
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	function show(email){
+		$('#email').html(email)
+		$('#sendmail').show();
+		$('#sendmails').hide();
+	}
+	$("#sendmail").click(function(){
+	  var email=$('#email').html();
+	  var title=$('#title').val();
+	  var content=$('#content').val();
+	  $.ajax({
+	  	url:"{:url('email/sendajax')}",
+	  	data:{
+	  		email:email,
+			title:title,
+			content:content
+	  	},
+	  	async:true,
+	  	cache:false,
+	  	type:"POST",
+	  	dataType:'json',
+	  	success:function(data){
+	  		console.log(data)
+			if (data.code==0) {
+				layer.msg('发送成功',function(){
+					$('#myModal').modal('hide')
+					$('#title').val('')
+					$('#content').val('')
+				});
+			}else{
+				layer.msg('发送失败')
+			}
+	  	}
+	  })
+	});
+	$("#checkall").click(function(){
+		$(":checkbox[class='emaillist']").prop("checked",true);
+	});
+	$("#checkno").click(function(){
+		$(":checkbox[class='emaillist']").prop("checked",false);
+	});
+	var emails=[];
+	$("#emails").click(function(){
+		emails=[];
+		$.each($('input:checkbox.emaillist:checked'),function(){
+			emails.push($(this).val());
+		});
+		if (emails.length==0) {
+			layer.msg('请先选择用户')
+		}else{
+			$('#myModal').modal('show')
+			$('#email').html(emails.join(','))
+			$('#sendmail').hide();
+			$('#sendmails').show();
+		}
+		//console.log(emails);
+	});
+	$("#sendmails").click(function(){
+	  
+	  var title=$('#title').val();
+	  var content=$('#content').val();
+	  $.ajax({
+	  	url:"{:url('email/sendajax')}",
+	  	data:{
+	  		email:emails,
+			title:title,
+			content:content
+	  	},
+	  	async:true,
+	  	cache:false,
+	  	type:"POST",
+	  	dataType:'json',
+	  	success:function(data){
+	  		//console.log(data)
+			var msg=JSON.stringify(data.msg)
+			layer.msg(msg,function(){
+				$('#myModal').modal('hide')
+				$('#title').val('')
+				$('#content').val('')
+			});
+	  	}
+	  })
+	});
+</script>
+{/block}

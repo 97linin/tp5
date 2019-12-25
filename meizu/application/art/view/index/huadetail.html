@@ -1,0 +1,94 @@
+{extend name="public/base" /}
+{block name="style"}
+<style type="text/css">
+	.c1 {
+		min-height: 35px;
+		padding: 0;
+	}
+
+	.single .c1 {
+		padding: 0;
+	}
+
+	.w1 {
+		margin-bottom: 0;
+	}
+</style>
+{/block}
+{block name="left"}
+<div class="content c1">
+	<div class="widget w1">
+		<h3>首页
+			{foreach nav as $vo}
+			/{$vo|default=''}
+			{/foreach}
+		</h3>
+	</div>
+</div>
+<div class="content">
+	<header class="article-header">
+		<h1 class="article-title"><a href="">{$minghua.title}</a></h1>
+		<div class="article-meta"> <span class="item article-meta-time">
+				<time class="time" data-toggle="tooltip" data-placement="bottom" title="时间：2016-1-4 10:29:39"><i class="glyphicon glyphicon-time"></i>
+					{$minghua.create_time}</time>
+			</span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="作者:{$minghua.user.username}"><i
+				 class="glyphicon glyphicon-globe"></i> {$minghua.user.username}</span> <span class="item article-meta-category"
+			 data-toggle="tooltip" data-placement="bottom" title="栏目：{$minghua.category.title}"><i class="glyphicon glyphicon-list"></i>
+				<a href="{:url('index/list',['id'=>$minghua.category_id])}" title="">{$minghua.category.title}</a></span>
+			<span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="查看：{$minghua.clicks}"><i
+				 class="glyphicon glyphicon-eye-open"></i>
+				共{$minghua.clicks}人围观</span> <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom"
+			 title="点赞:{$minghua.praise}"><i class="glyphicon glyphicon-comment"></i> 
+			<span id="upnum">{$minghua.praise}</span>个点赞</span>
+			<span  onclick="upme('{$minghua.id}','{$minghua.praise}')" title="点击赞我" id="me">
+				<i id="heart" class="glyphicon glyphicon-heart-empty"></i>
+			</span>
+			.
+		</div>
+	</header>
+	<article class="article-content">
+		<p><img data-original="{$Request.root}/{$minghua.cover_img}" src="{$Request.root}/{$minghua.cover_img}" alt="" /></p>
+		{$minghua.content|raw}
+	</article>
+</div>
+{/block}
+{block name="right"}
+<div class="fixed">
+	{include file="public/search"}i
+</div>
+{include file="public/sentence"}
+{include file="public/hot"}
+{/block}
+{block name="js"}
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+	
+		function upme(id,upnum){
+			var ok=localStorage.getItem("up"+id);
+			if(ok=="ok"){
+				layer.msg("不能重复点赞");
+				return;
+			}
+			$.ajax({
+				url:"{:url('index/up')}",
+				data:{
+					id:id,
+				},
+				async:true,
+				cache:false,
+				type:"POST",
+				dataType:'json',
+				success:function(data){
+					if(data.code==0){
+						$('#heart').removeClass('glyphicon-heart-empty');
+						$('#heart').addClass('glyphicon-heart');
+						$('#heart').css("color","red");
+						$('#me').attr("title","已赞");
+						$('#upnum').html(parseInt(upnum)+1);
+						localStorage.setItem("up"+id,"ok");
+					}
+				}
+			})
+		}
+</script>
+{/block}

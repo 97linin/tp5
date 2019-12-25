@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>meizu</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/front/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/front/css/nprogress.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/front/css/style.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/front/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="__STATIC__/front/images/icon/icon.png">
+<link rel="shortcut icon" href="__STATIC__/front/images/icon/favicon.ico">
+<script src="__STATIC__/front/js/jquery-2.1.4.min.js"></script>
+<script src="__STATIC__/front/js/nprogress.js"></script>
+<script src="__STATIC__/front/js/jquery.lazyload.min.js"></script>
+<!--[if gte IE 9]>
+  <script src="__STATIC__/front/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="__STATIC__/front/js/html5shiv.min.js" type="text/javascript"></script>
+  <script src="__STATIC__/front/js/respond.min.js" type="text/javascript"></script>
+  <script src="__STATIC__/front/js/selectivizr-min.js" type="text/javascript"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+  <script>window.location.href='upgrade-browser.html';</script>
+<![endif]-->
+{block name="style"}{/block}
+</head>
+
+<body class="user-select {eq name='$Request.action' value='detail'}single{/eq}">
+{include file="public/header" /}
+<section class="container">
+  <div class="content-wrap">
+      {block name="left"}{/block}
+  </div>
+  <aside class="sidebar">
+    {block name="right"}{/block}
+  </aside>
+</section>
+{include file="public/footer" /}
+<script src="__STATIC__/front/js/bootstrap.min.js"></script> 
+<script src="__STATIC__/front/js/jquery.ias.js"></script> 
+<script src="__STATIC__/front/js/scripts.js"></script>
+{block name="js"}{/block}
+</body>
+</html>

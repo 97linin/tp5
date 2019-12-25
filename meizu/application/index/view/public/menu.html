@@ -1,0 +1,12 @@
+<ol class="breadcrumb">
+	{notempty name="name"}
+		<li><a href="#">词典</a></li>  
+		<li class="active">{$title|default='单词'}</li>
+	{/notempty}
+	
+	{notempty name="navMenu"}
+		{foreach navMenu as $vo}
+		<li>{$vo|default=''}</li>
+		{/foreach}
+	{/notempty}
+</ol>

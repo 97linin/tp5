@@ -1,0 +1,80 @@
+<div class="row" style="padding: 20px 5% 0px 5%;background-color: white">
+	<div class="col-md-8">
+		<p style="font-weight: bold;color: sandybrown;">美术综合</p>
+		{volist name="newsarticles" id="vo"}
+		<div class="media">
+			<div class="media-left">
+				<a href="#">
+					<img class="media-object" data-original="{$Request.root}/{$vo.cover_img}" src="{$Request.root}/{$vo.cover_img}" alt="" width="120px" height="80px">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading" style="font-weight: bold;color: black;">
+					<a href="{:url('@front/index/huadetail',['id'=>$vo.id])}" title="">{$vo.title}</a>
+				</h5>
+				<p style="font-size: 13px;color: darkgray">
+					{$vo.create_time}
+					点击率{$vo.clicks}次</span>
+					{$vo.praise}个点赞
+					{$vo.describe}
+				</p>
+			</div>
+		</div>
+		{/volist}
+	</div>
+	<div class="col-md-4">
+		<p style="font-weight: bold;color: sandybrown;">美术大家|水墨专栏</p>
+		<div class="media">
+			<div class="media-left">
+				<a href="#">
+					<img class="media-object" src="__STATIC__/art/img/cr1.jpg" alt="..." width="100px" height="60px">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading" style="font-weight: bold;color: dimgrey;">徐里油画的中国理念</h5>
+				<p style="font-size: 13px;color: darkgray">
+					2019-11-09 16:54
+				</p>
+			</div>
+		</div>
+		<div class="media">
+			<div class="media-left">
+				<a href="#">
+					<img class="media-object" src="__STATIC__/art/img/cr1.jpg" alt="..." width="100px" height="60px">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading" style="font-weight: bold;color: dimgrey;">徐里油画的中国理念</h5>
+				<p style="font-size: 13px;color: darkgray">
+					2019-11-09 16:54
+				</p>
+			</div>
+		</div>
+		<div class="media">
+			<div class="media-left">
+				<a href="#">
+					<img class="media-object" src="__STATIC__/art/img/cr1.jpg" alt="..." width="100px" height="60px">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading" style="font-weight: bold;color: dimgrey;">徐里油画的中国理念</h5>
+				<p style="font-size: 13px;color: darkgray">
+					2019-11-09 16:54
+				</p>
+			</div>
+		</div>
+		<div class="media">
+			<div class="media-left">
+				<a href="#">
+					<img class="media-object" src="__STATIC__/art/img/cr1.jpg" alt="..." width="100px" height="60px">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading" style="font-weight: bold;color: dimgrey;">徐里油画的中国理念</h5>
+				<p style="font-size: 13px;color: darkgray">
+					2019-11-09 16:54
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

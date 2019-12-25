@@ -1,0 +1,13 @@
+{volist name="newsarticles" id="vo"}
+<article class="excerpt excerpt-1"><a class="focus" href="{:url('index/detail',['id'=>$vo.id])}" title="">
+		<img class="thumb" data-original="{$Request.root}/{$vo.cover_img}" src="{$Request.root}/{$vo.cover_img}" alt=""></a>
+	<header><a class="cat" href="{:url('index/list',['id'=>$vo.category_id])}">{$vo.category.title}<i></i></a>
+		<h2><a href="{:url('index/detail',['id'=>$vo.id])}" title="">{$vo.title}</a></h2>
+	</header>
+	<p class="meta">
+		<time class="time"><i class="glyphicon glyphicon-time"></i> {$vo.create_time}</time>
+		<span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{$vo.clicks}人围观</span> <a class="comment" href="article.html#comment"><i
+			 class="glyphicon glyphicon-comment"></i> {$vo.praise}个点赞</a></p>
+	<div class="note">{$vo.describe}</div>
+</article>
+{/volist}

@@ -1,0 +1,15 @@
+<div class="widget widget_hot">
+        <h3>热门手机</h3>
+        <ul>
+                {volist name="hotarticles" id="vo"}
+          <li>
+              <a href="{:url('index/detail',['id'=>$vo.id])}">
+                  <span class="thumbnail">
+                      <img class="thumb" data-original="{$Request.root}/{$vo.cover_img}" src="{$Request.root}/{$vo.cover_img}" alt="">
+                  </span>
+                  <span class="text">{$vo.title}</span>
+                  <span class="muted"><i class="glyphicon glyphicon-time"></i>{$vo.create_time}</span>
+                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>{$vo.clicks}</span></a></li>
+                  {/volist}
+        </ul>
+</div>

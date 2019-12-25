@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{$title|default='单词'}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/assets/css/bootstrap.min.css" />
+		<style type="text/css">
+			.footer {
+				height: 50px;
+				color: aliceblue;
+				background: black;
+				text-align: center;
+				line-height: 50px;
+				width: 100%;
+			}
+		</style>
+		{block name="style"}{/block}
+	</head>
+	<body>
+		<div>
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						 aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Brand</a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<!-- <li {eq name='$Request.action' value='index'} class="active" {/eq}>
+								<a href="{:url('dictionary/index')}">单词列表</a>
+							</li>
+							<li {eq name='$Request.action' value='add'} class="active" {/eq}>
+								<a href="{:url('dictionary/add')}">增加单词</a>
+							</li>
+							<li {eq name='$Request.action' value='search'} class="active" {/eq}>
+								<a href="{:url('dictionary/search')}">搜索单词</a>
+							</li>
+							<li {eq name='$Request.action' value='user'} class="active" {/eq}>
+								<a href="{:url('email/user')}">用户名单</a>
+							</li> -->
+							{eq name="$Request.controller" value="Dictionary"}<li class="dropdown active">
+								{else/}<li class="dropdown">{/eq}
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">单词
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{:url('dictionary/index')}">单词列表</a>
+									</li>
+									<li>
+										<a href="{:url('dictionary/add')}">增加单词</a>
+									</li>
+									<li>
+										<a href="{:url('dictionary/search')}">搜索单词</a>
+									</li>
+								</ul>
+							</li>
+							{eq name="$Request.controller" value="Email"}<li class="dropdown active">
+								{else/}<li class="dropdown">{/eq}
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">邮件
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{:url('email/show')}">发送邮件</a>
+									</li>
+									<li>
+										<a href="{:url('email/user')}">用户名单</a>
+									</li>
+									<li>
+										<a href="{:url('email/attach')}">附件发送</a>
+									</li>
+								</ul>
+							</li>
+							{eq name="$Request.controller" value="Excel"}<li class="dropdown active">
+								{else/}<li class="dropdown">{/eq}
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excel
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{:url('excel/index')}">测试批量上传</a>
+									</li>
+									<li>
+										<a href="{:url('excel/user')}">批量增加用户</a>
+									</li>
+									<li>
+										<a href="{:url('excel/down')}">下载用户名单</a>
+									</li>
+
+								</ul>
+							</li>
+							{eq name="$Request.controller" value="Photo"}<li class="dropdown active">
+								{else/}<li class="dropdown">{/eq}
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图片
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{:url('photo/index')}">图片上传</a>
+									</li>
+									<li>
+										<a href="{:url('photo/ajax')}">无刷上传</a>
+									</li>
+									<li>
+										<a href="{:url('photo/Webuploader')}">插件上传</a>
+									</li>
+									<li>
+										<a href="{:url('photo/cropper')}">图片裁剪</a>
+									</li>
+									<li>
+										<a href="{:url('photo/add')}">相册照片</a>
+									</li>
+									<li>
+										<a href="{:url('photo/show')}">相册展示</a>
+									</li>
+								</ul>
+							</li>
+							<li {eq name='$Request.controller' value='Editor' } class="active" {/eq}> <a href="{:url('editor/index')}">富文本框</a>
+							</li>
+							
+						</ul>
+						<form class="navbar-form navbar-left" action="{:url('index/search')}" method="get">
+							<div class="form-group">
+								
+								<input type="text" class="form-control" " placeholder="Search">
+							</div>
+							<button type="submit" class="btn btn-default">搜索</button>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							{if empty($Think.session.user)}
+							<li><a href="{:url('phone/login')}">登录</a></li>
+							<li><a href="{:url('phone/register')}">注册</a></li>
+							{else/}
+							<li><a href="{:url('admin/index/index')}">{$Think.session.user.username}--
+									个人中心</a></li>
+							<li><a href="{:url('phone/logout')}">退出登录</a></li>
+							{/if}
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container-fluid -->
+			</nav>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					{include file='public/menu'}
+					{block name="content"}{/block}
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		<div class="footer" id="footer">底部文字</div>
+		<script src="__STATIC__/assets/js/jquery.min.js"></script>
+		<script src="__STATIC__/assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(window).bind("load", function() {
+
+				var footerHeight = 0,
+
+					footerTop = 0,
+
+					$footer = $("#footer");
+
+				positionFooter();
+
+				//定义positionFooter function
+
+				function positionFooter() {
+
+					//取到div#footer高度
+
+					footerHeight = $footer.height();
+
+					//div#footer离屏幕顶部的距离
+
+					footerTop = ($(window).scrollTop() + $(window).height() - footerHeight - 35) + "px";
+
+
+
+					//如果页面内容高度小于屏幕高度，div#footer将绝对定位到屏幕底部，否则div#footer保留它的正常静态定位
+
+					if (($(document.body).height() + footerHeight) < $(window).height()) {
+
+						$footer.css({
+
+							position: "absolute"
+
+						}).stop().animate({
+
+							top: footerTop,
+
+
+
+						});
+
+					} else {
+
+						$footer.css({
+							position: "static"
+						});
+					}
+
+				}
+
+				$(window).scroll(positionFooter).resize(positionFooter);
+
+			});
+		</script>
+		{block name="js"}{/block}
+	</body>
+</html>

@@ -1,0 +1,25 @@
+{extend name="public/base" /}
+
+{block name="content"}
+	<body>
+        <h1 class="text-center">发送邮件</h1>
+        <form action="{:url('email/sendemailattach')}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="收件地址" />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="title" placeholder="标题" />
+            </div>
+            <div class="form-group">
+                <textarea name="content" class="form-control" rows="6" placeholder="邮件内容"></textarea>
+            </div>
+			<div class="form-group">
+			    <input type="file" class="form-control" name="file[]" multiple="multiple" placeholder="文件" />
+			</div>
+            <div class="form-group">
+                    <div class="col-sm-offset-6 col-sm-6">
+                        <button type="submit" class="btn btn-default">发送邮件</button>
+                    </div>
+            </div>
+        </form>
+{/block}

@@ -1,0 +1,101 @@
+{extend name="public/base1" /}
+{block name="style"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/umeditor/themes/default/css/umeditor.min.css">
+<style type="text/css">
+	#show{
+		height: 80px;
+	}
+</style>
+{/block}
+{block name="content"}
+<article class="cl pd-20">
+	<form action="{:url('websitelink/save')}" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>网站名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="website_name" name="website_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>链接地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="href" name="href">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>logo：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="hidden" class="input-text" value="" placeholder="" id="website_logo" name="website_logo">
+				<input type="file" class="form-control" name="file" onchange="checkfile()" id="file" />
+				<div class="text-center"><img id="show" ></div>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/hui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/hui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+	
+	function checkfile(){
+		var formdata=new FormData();
+		formdata.append('file',document.getElementById('file').files[0])
+		$.ajax({
+			url:"{:url('websitelink/ajaxupload')}",
+			data:formdata,
+			async:true,
+			cache:false,
+			processData:false,
+			contentType:false,
+			type:"POST",
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+				if(data.code==0){
+					$("#show").attr('src','{$Request.root}/'+data.msg);
+					$("#website_logo").val(data.msg);
+				}else{
+					
+				}
+			}
+		})
+	};
+	$(function() {
+		$("#form-member-add").validate({
+			rules: {
+				title: {
+					required: true,
+					minlength: 2,
+				},
+
+			},
+			onkeyup: false,
+			focusCleanup: true,
+			success: "valid",
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					success:function(data){
+						alert(data.msg);
+						if(data.code==0){
+							var index = parent.layer.getFrameIndex(window.name);
+							window.parent.location.reload();
+							//parent.$('.btn-refresh').click();
+							parent.layer.close(index);
+						}
+					}
+				})
+				
+			}
+		})
+	});
+</script>
+{/block}

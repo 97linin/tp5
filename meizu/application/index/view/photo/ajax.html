@@ -1,0 +1,38 @@
+{extend name="public/base" /}
+
+{block name="content"}
+<form method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label for="title">请选择图片文件:</label>
+		<input type="file" class="form-control" name="file" onchange="checkfile()" id="file" />
+	</div>
+</form>
+<div class="text-center"><img id="show" ></div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+function checkfile(){
+	var formdata=new FormData();
+	formdata.append('file',document.getElementById('file').files[0])
+	$.ajax({
+		url:"{:url('photo/ajaxupload')}",
+		data:formdata,
+		async:true,
+		cache:false,
+		processData:false,
+		contentType:false,
+		type:"POST",
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+			if(data.code==0){
+				$("#show").attr('src','{$Request.root}/'+data.msg);
+			}else{
+				
+			}
+		}
+	})
+}
+</script>
+
+{/block}

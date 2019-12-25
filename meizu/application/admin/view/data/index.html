@@ -1,0 +1,38 @@
+{extend name="public/base" /}
+{block name="content"}
+<article class="cl pd-20">
+	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> 
+	<a class="btn btn-primary radius" href="{:url('data/index',['action'=>'backup'])}" onclick="return confirm('备份数据较长,确定要备份所有数据吗?')">
+	<i class="Hui-iconfont">&#xe600;</i> 添加备份</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="mt-10">
+		<table class="table table-border table-bordered table-hover table-bg">
+			<thead>
+				<tr>
+					<th scope="col" colspan="3">备份管理</th>
+				</tr>
+				<tr class="text-c">
+					<th>序号</th>
+					
+					<th>备份大小</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="list" id="vo"}
+					<tr class="text-c">
+						<th scope="row">{$key}</th>
+						<td>{$vo.size}</td>
+						<td>
+							<a href="{:url('index',['action'=>'download','time'=>$vo.time])}">下载</a>
+							<a href="{:url('index',['action'=>'restore','time'=>$vo.time])}" 
+							onclick="return confirm('备份还原后仅会显示当前备份的数据库的信息,您确定还原备份吗？')">还原</a>
+							<a href="{:url('index',['action'=>'del','time'=>$vo.time])}"
+							onclick="return confirm('数据库备份一旦删除不可找回,您确定操作吗？')">删除</a>
+						</td>
+					</tr>
+				{/volist}
+			</tbody>
+		</table>
+	</div>
+</article>
+{/block}

@@ -1,0 +1,59 @@
+{extend name="public/base" /}
+
+{block name="content"}
+<div>
+	<table class="table">
+		<caption>欢迎使用</caption>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>单词</th>
+				<th>状态</th>
+				<th>时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name='data' id='v2' empty='暂时没有数据'}
+			<tr>
+				<th scope="row">{$i}</th>
+				<td><span class="word" id="{$v2.id}">{$v2.word}</span></td>
+				<td>{eq name='v2.state' value='0'}正常{else/}禁用{/eq}</td>
+				<td>{$v2.create_time}</td>
+				<td>
+					<a href="{:url('dictionary/del',['id'=>$v2.id])}">删除</a>
+					&nbsp;&nbsp;
+					<a href="{:url('dictionary/edit',['id'=>$v2.id])}">修改</a>
+				</td>
+			</tr>
+			{/volist}
+		</tbody>
+	</table>
+	{$data|raw}
+</div>
+{/block}
+
+{block name="js"}
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+	$(function(){
+		$('.word').mouseover(function(){
+			var wid=$(this).attr('id');
+			$.ajax({
+				url:"{:url('dictionary/detail')}",
+				data:{
+					id:wid,
+				},
+				async:true,
+				cache:false,
+				type:"POST",
+				dataType:'json',
+				success:function(data){
+					layer.msg(data.explanation)
+				}
+			})
+		})
+	})
+</script>
+
+{/block}
